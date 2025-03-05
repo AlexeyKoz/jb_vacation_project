@@ -36,7 +36,8 @@ def main():
         print("10 - Like a vacation")
         print("11 - Get likes by user")
         print("12 - Check if email exists")
-        print("13 - Exit")
+        print("13 - Return user by email and password")
+        print("14 - Exit")
 
         choice = input("Enter option: ")
 
@@ -120,17 +121,25 @@ def main():
             print("User's likes:", [like.as_dict() for like in likes])
 
         elif choice == "12":
-            email = input("Enter email to check: ")
+            exists = input("Enter email to check: ")
             exists = user_service.check_email_exists(email)
             if exists:
                 print("This email is already registered in the system.")
             else:
                 print("This email is available.")
 
-        elif choice == "13":
+        if choice == "13":
+            email = input("Enter email: ")
+            password = input("Enter password: ")
+            user = user_service.get_user_by_email_and_password(email, password)
+            if user:
+                print("User found:", user.as_dict())
+            else:
+                print("Error: User not found, please check your email and password!")
+
+        elif choice == "14":
             print("Exiting...")
             break
-
         else:
             print("Invalid option. Try again.")
 

@@ -65,3 +65,12 @@ class UserDAL:
         except Exception as e:
             print(f"Error checking email: {e}")
             return False
+
+    def get_user_by_email_and_password(self, email: str, password: str):
+        try:
+            return self.db.query(User).filter(User.email == email, User.password == password).first()
+        except Exception as e:
+            print(f"Error retrieving user: {e}")
+            return None
+
+

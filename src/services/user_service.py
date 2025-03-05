@@ -29,3 +29,6 @@ class UserService:
 
     def check_email_exists(self, email: str):
             return self.user_dal.check_email_exists(email)
+
+    def get_user_by_email_and_password(self, email: str, password: str):
+        return self.user_dal.get_user_by_email_and_password(email, password)
