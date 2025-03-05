@@ -14,7 +14,7 @@ def get_db():
         db.close()
 
 def main():
-    db: Session = next(get_db())  #
+    db: Session = next(get_db())
 
     user_service = UserService(db)
     role_service = RoleService(db)
@@ -39,9 +39,89 @@ def main():
 
         choice = input("Enter option: ")
 
-        if choice == "12":
+        if choice == "1":
+            first_name = input("First name: ")
+            last_name = input("Last name: ")
+            email = input("Email: ")
+            password = input("Password: ")
+            print("Available roles:")
+            roles = role_service.get_all_roles()
+            for role in roles:
+                print(f"{role.id} - {role.name}")
+            role_id = int(input("Enter Role ID: "))
+            if role_id == 1:
+                print("Error: Cannot create another administrator!")
+            else:
+                user = user_service.create_user(first_name, last_name, email, password, role_id)
+                print("User created:", user.as_dict() if user else "Error")
+
+        elif choice == "2":
+            users = user_service.get_all_users()
+            print("Users:", [user.as_dict() for user in users])
+
+        elif choice == "3":
+            role_name = input("Enter new role name (Admin is restricted): ")
+            if role_name.lower() == "admin":
+                print("Error: Administrator role already exists and cannot be created again!")
+            else:
+                role = role_service.create_role(role_name)
+                print("Role created:", role.as_dict() if role else "Error")
+
+        elif choice == "4":
+            roles = role_service.get_all_roles()
+            print("Roles:", [role.as_dict() for role in roles])
+
+        elif choice == "5":
+            user_id = int(input("Enter User ID: "))
+            print("Available roles:")
+            roles = role_service.get_all_roles()
+            for role in roles:
+                print(f"{role.id} - {role.name}")
+            new_role_id = int(input("Enter new Role ID: "))
+            updated_user = user_service.update_user_role(user_id, new_role_id)
+            if updated_user:
+                print("User role updated:", updated_user.as_dict())
+            else:
+                print("Error updating user role")
+
+        elif choice == "6":
+            country_name = input("Country name: ")
+            country = country_service.create_country(country_name)
+            print("Country created:", country.as_dict() if country else "Error")
+
+        elif choice == "7":
+            countries = country_service.get_all_countries()
+            print("Countries:", [country.as_dict() for country in countries])
+
+        elif choice == "8":
+            country_id = int(input("Country ID: "))
+            description = input("Description: ")
+            start_date = input("Start date (YYYY-MM-DD): ")
+            end_date = input("End date (YYYY-MM-DD): ")
+            price = float(input("Price: "))
+            image_url = input("Image URL: ")
+            vacation = vacation_service.create_vacation(country_id, description, start_date, end_date, price, image_url)
+            print("Vacation created:", vacation.as_dict() if vacation else "Error")
+
+        elif choice == "9":
+            vacations = vacation_service.get_all_vacations()
+            print("Vacations:", [vac.as_dict() for vac in vacations])
+
+        elif choice == "10":
+            user_id = int(input("User ID: "))
+            vacation_id = int(input("Vacation ID: "))
+            like = like_service.add_like(user_id, vacation_id)
+            print("Vacation liked:", like.as_dict() if like else "Error")
+
+        elif choice == "11":
+            user_id = int(input("User ID: "))
+            likes = like_service.get_likes_by_user(user_id)
+            print("User's likes:", [like.as_dict() for like in likes])
+
+        elif choice == "12":
             print("Exiting...")
             break
+
         else:
             print("Invalid option. Try again.")
 
