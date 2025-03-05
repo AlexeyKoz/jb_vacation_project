@@ -60,10 +60,3 @@ class UserDAL:
                     return None
 
 
-
-    def check_email_exists(self, email: str):
-        try:
-            return self.db.query(User).filter(User.email == email).first() is not None
-        except Exception as e:
-            print(f"Error checking email: {e}")
-            return False
