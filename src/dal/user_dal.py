@@ -59,9 +59,7 @@ class UserDAL:
                     self.db.rollback()
                     return None
 
-class UserDAL:
-    def init(self, db: Session):
-        self.db = db
+
 
     def check_email_exists(self, email: str):
         try:
