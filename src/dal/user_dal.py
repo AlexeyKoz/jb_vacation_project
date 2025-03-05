@@ -59,9 +59,6 @@ class UserDAL:
                     self.db.rollback()
                     return None
 
-    def init(self, db: Session):
-        self.db = db
-
     def check_email_exists(self, email: str):
         try:
             return self.db.query(User).filter(User.email == email).first() is not None
