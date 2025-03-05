@@ -25,3 +25,10 @@ class UserService:
             raise ValueError("Cannot assign administrator role manually")
         user = self.user_dal.update_user_role(user_id, new_role_id)
         return user
+
+    class UserService:
+        def __init__(self, db: Session):
+            self.user_dal = UserDAL(db)
+
+        def check_email_exists(self, email: str):
+            return self.user_dal.check_email_exists(email)
