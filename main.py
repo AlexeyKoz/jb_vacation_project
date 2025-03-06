@@ -128,7 +128,7 @@ def main():
             else:
                 print("This email is available.")
 
-        if choice == "13":
+        elif choice == "13":
             email = input("Enter email: ")
             password = input("Enter password: ")
             user = user_service.get_user_by_email_and_password(email, password)
@@ -140,7 +140,7 @@ def main():
         elif choice == "14":
             print("Exiting...")
             break
-        else:
+        else :
             print("Invalid option. Try again.")
 
 if __name__ == "__main__":
