@@ -12,6 +12,9 @@ class UserDAL:
             print(f"Error getting user: {e}")
             return None
 
+    def get_user_by_email(self, email: str):
+        return self.db.query(User).filter(User.email == email).first()
+
     def get_all_users(self):
         try:
             return self.db.query(User).all()
@@ -43,6 +46,7 @@ class UserDAL:
             print(f"Error deleting user: {e}")
             self.db.rollback()
             return False
+
 
 
     def update_user_role(self, user_id: int, new_role_id: int):

@@ -38,6 +38,7 @@ def main():
         print("12 - Check if email exists")
         print("13 - Return user by email and password")
         print("14 - Exit")
+        print("15 - Delete a user")
 
         choice = input("Enter option: ")
 
@@ -140,7 +141,12 @@ def main():
         elif choice == "14":
             print("Exiting...")
             break
-        else :
+
+
+        elif choice == "15":
+            user_service.delete_user_by_input()
+
+        else:
             print("Invalid option. Try again.")
 
 if __name__ == "__main__":

@@ -12,10 +12,21 @@ class UserService:
         return self.user_dal.get_user_by_id(user_id)
 
     def create_user(self, first_name: str, last_name: str, email: str, password: str, role_id: int):
-        existing_user = self.user_dal.get_user_by_id(email)
+        existing_user = self.user_dal.get_user_by_email(email)  # Correct function
         if existing_user:
             raise ValueError("User with this email already exists")
         return self.user_dal.create_user(first_name, last_name, email, password, role_id)
+
+    def delete_user_by_input(self):
+        try:
+            user_id = int(input("Enter User ID to delete: "))
+            success = self.delete_user(user_id)  # Now this method exists!
+            if success:
+                print(f"User with ID {user_id} deleted successfully.")
+            else:
+                print("Error: User not found or could not be deleted.")
+        except ValueError:
+            print("Invalid input! Please enter a valid numeric User ID.")
 
     def delete_user(self, user_id: int):
         return self.user_dal.delete_user(user_id)
