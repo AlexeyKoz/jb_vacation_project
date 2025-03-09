@@ -39,6 +39,7 @@ def main():
         print("13 - Return user by email and password")
         print("14 - Exit")
         print("15 - Delete a user")
+        print("16 - Edit vacation")
 
         choice = input("Enter option: ")
 
@@ -144,6 +145,21 @@ def main():
 
         elif choice == "15":
             user_service.delete_user_by_input()
+
+
+        elif choice == "16":
+            vacation_id = int(input("Enter vacation ID to update: "))
+            country_id = int(input("Country ID: "))
+            description = input("Description: ")
+            start_date = input("Start date (YYYY-MM-DD): ")
+            end_date = input("End date (YYYY-MM-DD): ")
+            price = float(input("Price: "))
+            image_url = input("Image URL: ")
+            vacation = vacation_service.update_vacation(vacation_id, country_id, description, start_date, end_date,price, image_url)
+            if vacation:
+                print("Vacation updated:", vacation.as_dict())
+            else:
+                print("Error updating vacation.")
 
         else:
             print("Invalid option. Try again.")
