@@ -13,6 +13,10 @@ class UserService:
         return self.user_dal.get_user_by_id(user_id)
 
     def create_user(self, first_name: str, last_name: str, email: str, password: str, role_id: int):
+        existing_user = self.user_dal.get_user_by_email(email)  # Correct function
+        if existing_user:
+            raise ValueError("User with this email already exists")
+            
         if not self.is_valid_email(email):
             raise ValueError("Invalid email format")
 
