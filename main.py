@@ -142,7 +142,6 @@ def main():
             print("Exiting...")
             break
 
-
         elif choice == "15":
             user_service.delete_user_by_input()
 
