@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from src.dal.user_dal import UserDAL
+import re
 
 class UserService:
     def __init__(self, db: Session):
@@ -12,9 +13,12 @@ class UserService:
         return self.user_dal.get_user_by_id(user_id)
 
     def create_user(self, first_name: str, last_name: str, email: str, password: str, role_id: int):
-        existing_user = self.user_dal.get_user_by_email(email)  # Correct function
-        if existing_user:
-            raise ValueError("User with this email already exists")
+        if not self.is_valid_email(email):
+            raise ValueError("Invalid email format")
+
+        if not password.isdigit() or len(password) < 4:
+            raise ValueError("Password must be at least 4 digits long")
+
         return self.user_dal.create_user(first_name, last_name, email, password, role_id)
 
     def delete_user_by_input(self):
@@ -42,4 +46,12 @@ class UserService:
             return self.user_dal.check_email_exists(email)
 
     def get_user_by_email_and_password(self, email: str, password: str):
+        if not password.isdigit() or len(password) < 4:
+            raise ValueError("Password must be at least 4 digits long")
+
         return self.user_dal.get_user_by_email_and_password(email, password)
+
+    def is_valid_email(self, email: str):
+        """Сhecks if the email is in a valid format"""
+        email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+        return re.match(email_regex, email) is not None

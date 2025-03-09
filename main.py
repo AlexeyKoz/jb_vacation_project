@@ -37,8 +37,9 @@ def main():
         print("11 - Get likes by user")
         print("12 - Check if email exists")
         print("13 - Return user by email and password")
-        print("14 - Exit")
+        print("14 - Unlike")
         print("15 - Delete a user")
+        print("16 - Exit")
 
         choice = input("Enter option: ")
 
@@ -138,12 +139,25 @@ def main():
             else:
                 print("Error: User not found, please check your email and password!")
 
+
         elif choice == "14":
-            print("Exiting...")
-            break
+            user_id = int(input("Enter User ID: "))
+            vacation_id = int(input("Enter Vacation ID: "))
+            removed = like_service.remove_like(user_id, vacation_id)
+            if removed:
+                print("Like removed successfully")
+            else:
+                print("Error: Like not found or could not be removed")
 
         elif choice == "15":
             user_service.delete_user_by_input()
+
+
+        elif choice == "16":
+            print("Exiting...")
+            break
+
+
 
         else:
             print("Invalid option. Try again.")
