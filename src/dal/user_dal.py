@@ -77,4 +77,3 @@ class UserDAL:
             print(f"Error retrieving user: {e}")
             return None
 
-
