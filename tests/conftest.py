@@ -1,18 +1,8 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.dal.base import Base
-import locale
-import sys
-import os
+from base import Base
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
-
-
-sys.stdout.reconfigure(encoding='utf-8')
-sys.stderr.reconfigure(encoding='utf-8')
-
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 
 # Connection to database
