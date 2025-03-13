@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from src.dal.vacation_dal import VacationDAL
-from datetime import datetime
+
 
 class VacationService:
     def __init__(self, db: Session):

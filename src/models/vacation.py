@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Date, Numeric
 from sqlalchemy.orm import relationship
 from src.dal.base import Base
-from src.models.country import Country
 
 
 class Vacation(Base):

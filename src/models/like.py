@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey
 from src.dal.base import Base
 from sqlalchemy.orm import relationship
-from src.models.user import User
-from src.models.vacation import Vacation
 
 
 class Like(Base):

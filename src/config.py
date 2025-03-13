@@ -1,8 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from src.models import Base
+import sys
+import locale
 
-DATABASE_URL = "postgresql://postgres:1234@localhost:5432/postgres"
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
+
+locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+
+DATABASE_URL = "postgresql://postgres:1234@localhost:5432/postgres?client_encoding=utf8"
 
 engine = create_engine(DATABASE_URL)
 
