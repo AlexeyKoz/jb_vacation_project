@@ -167,7 +167,7 @@ def main():
             else:
                 print("Error updating vacation.")
         
-         elif choice == "17":
+        elif choice == "17":
             print("Exiting...")
             break
 
