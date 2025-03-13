@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from src.models.vacation import Vacation
 from datetime import datetime
+from src.models.like import Like
 
 class VacationDAL:
     def __init__(self, db: Session):
@@ -102,3 +103,16 @@ class VacationDAL:
             self.db.rollback()
 
             return None
+
+    def delete_vacation(self, vacation_id: int):
+        try:
+
+            self.db.query(Like).filter(Like.vacation_id == vacation_id).delete()
+
+            deleted_rows = self.db.query(Vacation).filter(Vacation.id == vacation_id).delete()
+            self.db.commit()
+            return deleted_rows > 0
+        except Exception as e:
+            print(f"Error deleting vacation: {e}")
+            self.db.rollback()
+            return False

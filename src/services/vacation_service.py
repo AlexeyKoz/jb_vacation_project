@@ -17,3 +17,6 @@ class VacationService:
 
     def update_vacation(self, vacation_id: int, country_id: int, description: str, start_date, end_date, price: float, image_url: str):
         return self.vacation_dal.update_vacation(vacation_id, country_id, description, start_date, end_date, price, image_url)
+
+    def delete_vacation(self, vacation_id: int):
+        return self.vacation_dal.delete_vacation(vacation_id)

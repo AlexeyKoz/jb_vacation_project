@@ -40,7 +40,8 @@ def main():
         print("14 - Unlike")
         print("15 - Delete a user")
         print("16 - Update vacation")
-        print("17 - Exit")
+        print("17 - Delete vacation")
+        print("18 - Exit")
 
         choice = input("Enter option: ")
 
@@ -167,12 +168,23 @@ def main():
             else:
                 print("Error updating vacation.")
         
+
         elif choice == "17":
+            vacation_id = int(input("Enter Vacation ID to delete: "))
+            deleted = vacation_service.delete_vacation(vacation_id)
+            if deleted:
+                print("Vacation and all related likes deleted successfully")
+            else:
+                print("Error: Vacation not found or could not be deleted")
+
+
+        elif choice == "18":
             print("Exiting...")
             break
 
         else:
-            print("Invalid option. Try again.")
+           print("Invalid option. Try again.")
+
 
 if __name__ == "__main__":
     main()
