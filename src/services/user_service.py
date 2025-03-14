@@ -20,8 +20,11 @@ class UserService:
         if not self.is_valid_email(email):
             raise ValueError("Invalid email format")
 
-        if not password.isdigit() or len(password) < 4:
+        if len(password) < 4:
             raise ValueError("Password must be at least 4 digits long")
+
+        if not first_name or not last_name or not email or not password or not role_id:
+            raise ValueError("Failed to create user: please make sure you've filled all the required fields")
 
         return self.user_dal.create_user(first_name, last_name, email, password, role_id)
 

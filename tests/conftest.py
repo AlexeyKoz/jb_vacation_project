@@ -28,4 +28,4 @@ def db_session():
 
     session.rollback()  # Remove all changes from the session
     session.close()
-    Base.metadata.drop_all(bind=engine)  # Delete all tables after the test
+

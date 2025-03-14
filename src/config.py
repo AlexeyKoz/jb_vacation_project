@@ -9,7 +9,7 @@ sys.stderr.reconfigure(encoding='utf-8')
 
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
-DATABASE_URL = "postgresql://postgres:1234@localhost:5432/postgres?client_encoding=utf8"
+DATABASE_URL = "postgresql://postgres:1234@localhost:5432"
 
 engine = create_engine(DATABASE_URL)
 
