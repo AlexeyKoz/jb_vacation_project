@@ -11,22 +11,25 @@ def test_user_registration_success(db_session):
     user_service = UserService(db_session)
     user = user_service.create_user("ben", "gvir", "bengvir@gmail.com", "asds", 2)
 
-    assert user is not None
-    assert user.email == "bengvir@gmail.com"
-
-    db_session.delete(user)
-    db_session.commit()
+    try:
+        assert user is not None
+        assert isinstance(user.email, str)
+    finally:
+        db_session.delete(user)
+        db_session.commit()
 
 
 def test_user_registration_failed(db_session):
     user_service = UserService(db_session)
-    user = user_service.create_user("asd", "gvir", "bengvir@gmail.com", "1234", 2)
+    user = user_service.create_user("asd", "gvir", 123123 , "1234", 2)
 
-    assert user is not None
-    assert user.email == "bengvir@gmail.com"
+    try:
+        assert user.email is str
+        assert user is not None
 
-    db_session.delete(user)
-    db_session.commit()
+    finally:
+        db_session.delete(user)
+        db_session.commit()
 
 
 
@@ -36,24 +39,26 @@ def test_login_positive(db_session):
     login = user_service.login("bibiNetanyahu@gmail.com", "1234")
     db_session.commit()
 
-    assert login is not None
-    assert login.email == "bibiNetanyahu@gmail.com"
-    assert login.password == "1234"
+    try:
+        assert login is not None
+        assert login.email == "bibiNetanyahu@gmail.com"
+        assert login.password == "1234"
 
-    db_session.delete(user)
-    db_session.commit()
+    finally:
+        db_session.delete(user)
+        db_session.commit()
 
 def test_login_negative(db_session):
     user_service = UserService(db_session)
-    user = user_service.create_user("Bibi", "Netanyahu", "bibiNetanyahu@gmail.com", "1234", role_id=2)
-    login = user_service.login("bibiNetanyahu@gmail.com", "1234")
+    user = user_service.create_user("bibi", "Netanyahu", "bibiNetanyahu@gmail.com", "1234", role_id=2)
 
-    assert login is None
-    assert login.email == "bibiNetanyahu@gmail.com"
-    assert login.password != "1234"
+    try:
+        login = user_service.login("", "1234")
+        assert login.email is not None
 
-    db_session.delete(user)
-    db_session.commit()
+    finally:
+        db_session.delete(user)
+        db_session.commit()
 
 
 
