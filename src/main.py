@@ -42,7 +42,8 @@ def main():
         print("16 - Update vacation")
         print("17 - Delete vacation")
         print("18 - Login")
-        print("19 - Exit")
+        print("19 - get user by id")
+        print("20 - Exit")
 
         choice = input("Enter option: ")
 
@@ -187,8 +188,14 @@ def main():
             else:
                 print("Login failed, please check your email and password!")
 
-
         elif choice == "19":
+            user_id = int(input("User ID: "))
+            get_user_by_id = user_service.get_user_by_id(user_id)
+            print("User found:", get_user_by_id.as_dict() if get_user_by_id else "Error")
+
+
+
+        elif choice == "20":
             print("Exiting...")
             break
 
