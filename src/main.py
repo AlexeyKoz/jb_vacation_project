@@ -6,6 +6,8 @@ from src.services.country_service import CountryService
 from src.services.vacation_service import VacationService
 from src.services.like_service import LikeService
 
+
+# Create a generator function to get the database session
 def get_db():
     db = SessionLocal()
     try:
@@ -13,6 +15,7 @@ def get_db():
     finally:
         db.close()
 
+# Main function to run the application
 def main():
     db: Session = next(get_db())
 
@@ -22,6 +25,8 @@ def main():
     vacation_service = VacationService(db)
     like_service = LikeService(db)
 
+
+    # Show main menu for manual testing
     while True:
         print("\nChoose an option:")
         print("1 - Create a new user (non-admin)")
@@ -53,6 +58,9 @@ def main():
 
         choice = input("Enter option: ")
 
+
+
+        # Handle user input based on the selected option
         if choice == "1":
             first_name = input("First name: ")
             last_name = input("Last name: ")
@@ -235,13 +243,14 @@ def main():
             else:
                 print("Error: Country not found or could not be deleted")
 
+        # Exit the application
         elif choice == "26":
             print("Exiting...")
             break
-
+        # Error handling for invalid options
         else:
            print("Invalid option. Try again.")
 
-
+# Run the main function
 if __name__ == "__main__":
     main()

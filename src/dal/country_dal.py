@@ -1,10 +1,13 @@
 from sqlalchemy.orm import Session
 from src.models.country import Country
 
+
+# This class is used to interact with "Country" table in database.
 class CountryDAL:
     def __init__(self, db: Session):
         self.db = db
 
+    # This method is used to get all countries from the database.
     def get_all_countries(self):
         try:
             return self.db.query(Country).all()
@@ -12,6 +15,7 @@ class CountryDAL:
             print(f"Error getting countries: {e}")
             return []
 
+    # This method is used to get a country by id from database.
     def get_country_by_id(self, country_id: int):
         try:
             return self.db.query(Country).filter(Country.id == country_id).first()
@@ -19,6 +23,7 @@ class CountryDAL:
             print(f"Error getting country: {e}")
             return None
 
+    #  This method is used to get a country by its name.
     def get_country_by_name(self, country_name: str):
         try:
             return self.db.query(Country).filter(Country.name == country_name).first()
@@ -26,6 +31,7 @@ class CountryDAL:
             print(f"Error getting country: {e}")
             return None
 
+    # This method is used to create a new country in the database.
     def create_country(self, name: str):
         try:
             new_country = Country(name=name)
@@ -38,6 +44,8 @@ class CountryDAL:
             self.db.rollback()
             return None
 
+
+    # This method is used delete a country from the database.
     def delete_country(self, country_id: int):
         try:
             country = self.get_country_by_id(country_id)
@@ -51,6 +59,7 @@ class CountryDAL:
             self.db.rollback()
             return False
 
+    # This method is used to update a country in the database.
     def update_country(self,country_id: int, name: str):
         try:
             # Fetch the existing country
@@ -67,6 +76,7 @@ class CountryDAL:
             self.db.refresh(country)
             return country
 
+        # Handle the error's
         except ValueError as e:
             print(f"Error updating vacation: {e}")
             self.db.rollback()

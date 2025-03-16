@@ -1,10 +1,14 @@
 from sqlalchemy.orm import Session
 from src.models.user import User
 
+
+# This class is used to interact with the "user" table in the database
 class UserDAL:
     def __init__(self, db: Session):
         self.db = db
 
+
+    # This method is used to get a user by its id from the database.
     def get_user_by_id(self, user_id: int):
         try:
             return self.db.query(User).filter(User.id == user_id).first()
@@ -12,9 +16,11 @@ class UserDAL:
             print(f"Error getting user: {e}")
             return None
 
+    # This method is used to get all data for specific user by its email from the database.
     def get_user_by_email(self, email: str):
         return self.db.query(User).filter(User.email == email).first()
 
+    # This method is used to get all users from the database.
     def get_all_users(self):
         try:
             return self.db.query(User).all()
@@ -22,6 +28,7 @@ class UserDAL:
             print(f"Error getting users: {e}")
             return []
 
+    # This method is used to create a new user in the database.
     def create_user(self, first_name: str, last_name: str, email: str, password: str, role_id: int):
         try:
             new_user = User(first_name=first_name, last_name=last_name, email=email, password=password, role_id=role_id)
@@ -34,6 +41,7 @@ class UserDAL:
             self.db.rollback()
             return None
 
+    # This method is used to delete a user from the database.
     def delete_user(self, user_id: int):
         try:
             user = self.get_user_by_id(user_id)
@@ -48,7 +56,7 @@ class UserDAL:
             return False
 
 
-
+    # This method is used to update a user in the database.
     def update_user_role(self, user_id: int, new_role_id: int):
                 try:
                     user = self.db.query(User).filter(User.id == user_id).first()
@@ -63,6 +71,8 @@ class UserDAL:
                     self.db.rollback()
                     return None
 
+    # This method is used to checking if specific email is already
+    # existing in the database.
     def check_email_exists(self, email: str):
         try:
             return self.db.query(User).filter(User.email == email).first() is not None
@@ -70,6 +80,8 @@ class UserDAL:
             print(f"Error checking email: {e}")
             return False
 
+    # This method is used to get a specific user by
+    # its email and password from the database.
     def get_user_by_email_and_password(self, email: str, password: str):
         try:
             return self.db.query(User).filter(User.email == email, User.password == password).first()
@@ -77,6 +89,7 @@ class UserDAL:
             print(f"Error retrieving user: {e}")
             return None
 
+    # This method is used to login a user by its email and password.
     def login(self, email: str, password: str):
         try:
             user = self.get_user_by_email_and_password(email, password)

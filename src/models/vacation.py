@@ -2,10 +2,11 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Date, Numeric
 from sqlalchemy.orm import relationship
 from src.dal.base import Base
 
-
+# This class represents the "vacations" model.
 class Vacation(Base):
     __tablename__ = "vacations"
 
+    # Each vacation has id, country_id, description, start_date, end_date, price, and image_url.
     id = Column(Integer, primary_key=True, index=True)
     country_id = Column(Integer, ForeignKey("countries.id", ondelete="CASCADE"))
     description = Column(String, nullable=False)
@@ -16,6 +17,8 @@ class Vacation(Base):
 
     country = relationship("Country")
 
+
+    # This method is used to return the vacation as a dictionary for manual menu testing.
     def as_dict(self):
         return {
             "id": self.id,
