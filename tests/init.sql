@@ -40,7 +40,8 @@ CREATE TABLE likes(
 );
 
 
--- We only insert this data because we need basic roles for the tests to work.
+
+-- We only insert this data because we need basic roles for the tests
 -- We don't want to insert some data because we will input it from test itself.
 INSERT INTO roles(name) VALUES
   ('admin'),
