@@ -239,13 +239,9 @@ def main():
             print("Exiting...")
             break
 
-
-
         else:
            print("Invalid option. Try again.")
 
 
 if __name__ == "__main__":
     main()
-
-print("hello")
