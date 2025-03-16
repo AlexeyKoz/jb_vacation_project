@@ -1,3 +1,6 @@
+-- after creating db we need create all tables and insert data
+
+
 -- Create the users table
 CREATE TABLE roles(
   id SERIAL PRIMARY KEY,
@@ -14,11 +17,13 @@ CREATE TABLE users(
   role_id INT REFERENCES roles(id) ON DELETE CASCADE
 );
 
+-- Create the countries table
 CREATE TABLE countries(
   id SERIAL PRIMARY KEY,
   name VARCHAR(50) UNIQUE NOT NULL
 );
 
+-- Create the vacations table
 CREATE TABLE vacations(
   id SERIAL PRIMARY KEY,
   country_id INT REFERENCES countries(id) ON DELETE CASCADE,
@@ -30,15 +35,19 @@ CREATE TABLE vacations(
   CHECK (start_date < end_date)
 );
 
+-- Create the likes table
 CREATE TABLE likes(
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
   vacation_id INT REFERENCES vacations(id) ON DELETE CASCADE
 );
 
+-- Create the bookings table
 INSERT INTO roles(name) VALUES
   ('admin'),
   ('user');
 
+
+-- Insert data into the roles table
 INSERT INTO users (first_name, last_name, email, password, role_id) VALUES
 ('Alexey', 'Kozlov', 'alexey.kozlov@example.com', 'hashed_password_1', 1),
 ('Noa', 'Kirell', 'noa.kirell@example.com', 'hashed_password_5', 2),
@@ -47,6 +56,8 @@ INSERT INTO users (first_name, last_name, email, password, role_id) VALUES
 ('Maor', 'Shlomo', 'maor.shlomo@example.com', 'hashed_password_8', 2),
 ('Doron', 'Shalom', 'doron.shalom@example.com', 'hashed_password_9', 2);
 
+
+-- Insert data into the countries and vacations tables
 INSERT INTO countries (name) VALUES
     ('Israel'),
     ('Ukraine'),
@@ -59,6 +70,8 @@ INSERT INTO countries (name) VALUES
     ('Turkey'),
     ('Greece');
 
+
+-- Insert data into the vacations table
 INSERT INTO vacations (country_id, description, start_date, end_date, price, image_url) VALUES
     (1, 'Beach vacation on the Mediterranean coast in Tel Aviv', '2025-06-01', '2025-06-15', 1500.00, 'tel_aviv.jpg'),
     (2, 'Ski resort Bukovel in the Carpathians', '2025-12-20', '2026-01-05', 1200.00, 'bukovel.jpg'),

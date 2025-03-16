@@ -1,10 +1,13 @@
 from sqlalchemy.orm import Session
 from src.models.role import Role
 
+
+# This class is used to interact with the database
 class RoleDAL:
     def __init__(self, db: Session):
         self.db = db
 
+    # This method is used to get all roles from the database.
     def get_all_roles(self):
         try:
             return self.db.query(Role).all()
@@ -12,6 +15,9 @@ class RoleDAL:
             print(f"Error getting roles: {e}")
             return []
 
+
+
+    # This method is used to get a role by its ID.
     def get_role_by_id(self, role_id: int):
         try:
             return self.db.query(Role).filter(Role.id == role_id).first()
@@ -19,6 +25,8 @@ class RoleDAL:
             print(f"Error getting role: {e}")
             return None
 
+
+    # This method is used to create a new role in the database.
     def create_role(self, name: str):
         try:
             new_role = Role(name=name)
@@ -31,6 +39,9 @@ class RoleDAL:
             self.db.rollback()
             return None
 
+
+
+    # This method is used to delete a role from the database.
     def delete_role(self, role_id: int):
         try:
             role = self.get_role_by_id(role_id)
@@ -44,6 +55,9 @@ class RoleDAL:
             self.db.rollback()
             return False
 
+
+
+    # This method is used to get a role by its name.
     def update_role(self, role_id: int, name: str):
         try:
             role = self.get_role_by_id(role_id)

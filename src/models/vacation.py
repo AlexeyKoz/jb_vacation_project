@@ -2,10 +2,12 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Date, Numeric
 from sqlalchemy.orm import relationship
 from src.dal.base import Base
 
-
+# Create a model for the `vacations` table
 class Vacation(Base):
     __tablename__ = "vacations"
 
+
+    #
     id = Column(Integer, primary_key=True, index=True)
     country_id = Column(Integer, ForeignKey("countries.id", ondelete="CASCADE"))
     description = Column(String, nullable=False)
@@ -13,9 +15,10 @@ class Vacation(Base):
     end_date = Column(Date, nullable=False)
     price = Column(Numeric(10, 2), nullable=False)
     image_url = Column(String)
-
     country = relationship("Country")
 
+
+    # Define the representation of the `Vacation` model
     def as_dict(self):
         return {
             "id": self.id,

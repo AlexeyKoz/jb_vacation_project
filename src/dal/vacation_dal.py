@@ -3,10 +3,14 @@ from src.models.vacation import Vacation
 from datetime import datetime
 from src.models.like import Like
 
+
+# This class is used to interact with the database
 class VacationDAL:
     def __init__(self, db: Session):
         self.db = db
 
+
+    # This method is used to get all vacations from the database.
     def get_all_vacations(self):
         try:
             return self.db.query(Vacation).order_by(Vacation.start_date).all()  # Ordering by start_date
@@ -14,6 +18,8 @@ class VacationDAL:
             print(f"Error getting vacations: {e}")
             return []
 
+
+    # This method is used to get a vacation by its ID.
     def get_vacation_by_id(self, vacation_id: int):
         try:
             return self.db.query(Vacation).filter(Vacation.id == vacation_id).first()
@@ -21,6 +27,9 @@ class VacationDAL:
             print(f"Error getting vacation: {e}")
             return None
 
+
+
+    # This method is used to get all vacations for a specific country.
     def create_vacation(self, country_id: int, description: str, start_date, end_date, price: float, image_url: str):
         try:
             # Convert start_date and end_date to datetime.date if they are strings
@@ -64,6 +73,8 @@ class VacationDAL:
             self.db.rollback()
             return None
 
+
+    # This method is used to update an existing vacation in the database.
     def update_vacation(self, vacation_id: int, country_id: int, description: str, start_date, end_date,price: float, image_url: str):
         try:
             # Fetch the existing vacation
@@ -104,6 +115,7 @@ class VacationDAL:
 
             return None
 
+    # This method is used to delete a vacation from the database.
     def delete_vacation(self, vacation_id: int):
         try:
 
