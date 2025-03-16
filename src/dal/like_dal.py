@@ -12,6 +12,13 @@ class LikeDAL:
             print(f"Error getting likes for user {user_id}: {e}")
             return []
 
+    def get_all_likes(self):
+        try:
+            return self.db.query(Like).all()
+        except Exception as e:
+            print(f"Error getting users: {e}")
+            return []
+
     def get_likes_by_vacation(self, vacation_id: int):
         try:
             return self.db.query(Like).filter(Like.vacation_id == vacation_id).all()

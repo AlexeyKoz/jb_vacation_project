@@ -42,8 +42,14 @@ def main():
         print("16 - Update vacation")
         print("17 - Delete vacation")
         print("18 - Login")
-        print("19 - get user by id")
-        print("20 - Exit")
+        print("19 - Get user by id")
+        print("20 - Get country by id")
+        print("21 - Get vacation by id")
+        print("22 - Get role by id")
+        print("23 - Update country by id")
+        print("24 - Get all Likes")
+        print("25 - Delete a Country")
+        print("26 - Exit")
 
         choice = input("Enter option: ")
 
@@ -193,11 +199,47 @@ def main():
             get_user_by_id = user_service.get_user_by_id(user_id)
             print("User found:", get_user_by_id.as_dict() if get_user_by_id else "Error")
 
-
-
         elif choice == "20":
+            country_id = int(input("Country ID: "))
+            get_country_by_id = country_service.get_country_by_id(country_id)
+            print("User found:", get_country_by_id.as_dict() if get_country_by_id else "Error")
+
+        elif choice == "21":
+            vacation_id = int(input("Vacation ID: "))
+            get_vacation_by_id = vacation_service.get_vacation_by_id(vacation_id)
+            print("User found:", get_vacation_by_id.as_dict() if get_vacation_by_id else "Error")
+
+        elif choice == "22":
+            role_id = int(input("Role ID: "))
+            get_role_by_id = role_service.get_role_by_id(role_id)
+            print("User found:", get_role_by_id.as_dict() if get_role_by_id else "Error")
+
+        elif choice == "23":
+            country_id = int(input("Enter country ID to update: "))
+            country_name = input("Name: ")
+            country = country_service.update_country(country_id, country_name)
+            if country:
+                print("Country updated:", country.as_dict())
+            else:
+                print("Error updating country.")
+
+        elif choice == "24":
+            likes = like_service.get_all_likes()
+            print("Users:", [like.as_dict() for like in likes])
+
+        elif choice == "25":
+            country_id = int(input("Enter Country ID to delete: "))
+            deleted = country_service.delete_country(country_id)
+            if deleted:
+                print("Country deleted successfully, Make sure to update Vacations in deleted country!")
+            else:
+                print("Error: Country not found or could not be deleted")
+
+        elif choice == "26":
             print("Exiting...")
             break
+
+
 
         else:
            print("Invalid option. Try again.")

@@ -8,6 +8,9 @@ class LikeService:
     def get_likes_by_user(self, user_id: int):
         return self.like_dal.get_likes_by_user(user_id)
 
+    def get_all_likes(self):
+        return self.like_dal.get_all_likes()
+
     def get_likes_by_vacation(self, vacation_id: int):
         return self.like_dal.get_likes_by_vacation(vacation_id)
 
