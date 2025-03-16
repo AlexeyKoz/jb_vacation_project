@@ -1,10 +1,14 @@
 from sqlalchemy.orm import Session
 from src.models.country import Country
 
+
+# This class is used to interact with the database
+# to perform CRUD operations on the `Country` model.
 class CountryDAL:
     def __init__(self, db: Session):
         self.db = db
 
+    # This method is used to get all countries from the database.
     def get_all_countries(self):
         try:
             return self.db.query(Country).all()
@@ -12,6 +16,7 @@ class CountryDAL:
             print(f"Error getting countries: {e}")
             return []
 
+    # This method is used to get a country by its ID from database.
     def get_country_by_id(self, country_id: int):
         try:
             return self.db.query(Country).filter(Country.id == country_id).first()
@@ -19,13 +24,7 @@ class CountryDAL:
             print(f"Error getting country: {e}")
             return None
 
-    def get_country_by_name(self, country_name: str):
-        try:
-            return self.db.query(Country).filter(Country.name == country_name).first()
-        except Exception as e:
-            print(f"Error getting country: {e}")
-            return None
-
+    #  This method is used to create a new country in the database.
     def create_country(self, name: str):
         try:
             new_country = Country(name=name)
@@ -38,6 +37,7 @@ class CountryDAL:
             self.db.rollback()
             return None
 
+    # This method is used delete a country from the database.
     def delete_country(self, country_id: int):
         try:
             country = self.get_country_by_id(country_id)
@@ -51,28 +51,10 @@ class CountryDAL:
             self.db.rollback()
             return False
 
-    def update_country(self,country_id: int, name: str):
+    # This method is used to get a country by its name.
+    def get_country_by_name(self, name: str):
         try:
-            # Fetch the existing country
-            country = self.db.query(Country).filter(Country.id == country_id).first()
-            country2 = self.db.query(Country).filter(Country.name == name).first()
-            if not country and not country2:
-                raise ValueError("Vacation not found.")
-
-
-            # Update the country fields
-            country.name = name
-            # Commit the changes to the database
-            self.db.commit()
-            self.db.refresh(country)
-            return country
-
-        except ValueError as e:
-            print(f"Error updating vacation: {e}")
-            self.db.rollback()
-            return None
+            return self.db.query(Country).filter(Country.name == name).first()
         except Exception as e:
-            print(f"Unexpected error: {e}")
-            self.db.rollback()
-
+            print(f"Error getting country: {e}")
             return None

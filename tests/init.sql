@@ -1,3 +1,5 @@
+-- Create all tables
+
 -- Create the users table
 CREATE TABLE roles(
   id SERIAL PRIMARY KEY,
@@ -14,11 +16,13 @@ CREATE TABLE users(
   role_id INT REFERENCES roles(id) ON DELETE CASCADE
 );
 
+-- Create the countries table
 CREATE TABLE countries(
   id SERIAL PRIMARY KEY,
   name VARCHAR(50) UNIQUE NOT NULL
 );
 
+-- Create the vacations table
 CREATE TABLE vacations(
   id SERIAL PRIMARY KEY,
   country_id INT REFERENCES countries(id) ON DELETE CASCADE,
@@ -35,6 +39,10 @@ CREATE TABLE likes(
   vacation_id INT REFERENCES vacations(id) ON DELETE CASCADE
 );
 
+
+
+-- We only insert this data because we need basic roles for the tests
+-- We don't want to insert some data because we will input it from test itself.
 INSERT INTO roles(name) VALUES
   ('admin'),
   ('user');
