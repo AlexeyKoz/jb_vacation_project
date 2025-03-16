@@ -16,11 +16,13 @@ CREATE TABLE users(
   role_id INT REFERENCES roles(id) ON DELETE CASCADE
 );
 
+-- Create the countries table
 CREATE TABLE countries(
   id SERIAL PRIMARY KEY,
   name VARCHAR(50) UNIQUE NOT NULL
 );
 
+-- Create the vacations table
 CREATE TABLE vacations(
   id SERIAL PRIMARY KEY,
   country_id INT REFERENCES countries(id) ON DELETE CASCADE,
@@ -36,6 +38,7 @@ CREATE TABLE likes(
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
   vacation_id INT REFERENCES vacations(id) ON DELETE CASCADE
 );
+
 
 
 -- We only insert this data because we need basic roles for the tests

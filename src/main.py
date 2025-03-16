@@ -176,7 +176,7 @@ def main():
                 print("Vacation updated:", vacation.as_dict())
             else:
                 print("Error updating vacation.")
-        
+
 
         elif choice == "17":
             vacation_id = int(input("Enter Vacation ID to delete: "))
