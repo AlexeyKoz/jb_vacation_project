@@ -1,10 +1,12 @@
 from sqlalchemy.orm import Session
 from src.models.like import Like
 
+# This class is used to interact with the database
 class LikeDAL:
     def __init__(self, db: Session):
         self.db = db
 
+    # This method is used to get all likes from the database.
     def get_likes_by_user(self, user_id: int):
         try:
             return self.db.query(Like).filter(Like.user_id == user_id).all()
@@ -12,13 +14,7 @@ class LikeDAL:
             print(f"Error getting likes for user {user_id}: {e}")
             return []
 
-    def get_all_likes(self):
-        try:
-            return self.db.query(Like).all()
-        except Exception as e:
-            print(f"Error getting users: {e}")
-            return []
-
+    # This method is used to get all likes for a specific vacation.
     def get_likes_by_vacation(self, vacation_id: int):
         try:
             return self.db.query(Like).filter(Like.vacation_id == vacation_id).all()
@@ -26,6 +22,7 @@ class LikeDAL:
             print(f"Error getting likes for vacation {vacation_id}: {e}")
             return []
 
+    # This method is used to add a new like to the database.
     def add_like(self, user_id: int, vacation_id: int):
         try:
             existing_like = self.db.query(Like).filter(
@@ -44,6 +41,8 @@ class LikeDAL:
             self.db.rollback()
             return None
 
+
+    # This method is used to remove a like from the database.
     def remove_like(self, user_id: int, vacation_id: int):
         try:
             like = self.db.query(Like).filter(

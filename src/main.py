@@ -6,6 +6,8 @@ from src.services.country_service import CountryService
 from src.services.vacation_service import VacationService
 from src.services.like_service import LikeService
 
+
+# Create a generator function to get the database session
 def get_db():
     db = SessionLocal()
     try:
@@ -13,15 +15,19 @@ def get_db():
     finally:
         db.close()
 
+
+# Main function to run the application
 def main():
     db: Session = next(get_db())
 
+    # Create instances of the services
     user_service = UserService(db)
     role_service = RoleService(db)
     country_service = CountryService(db)
     vacation_service = VacationService(db)
     like_service = LikeService(db)
 
+    # Show main menu
     while True:
         print("\nChoose an option:")
         print("1 - Create a new user (non-admin)")
@@ -42,17 +48,12 @@ def main():
         print("16 - Update vacation")
         print("17 - Delete vacation")
         print("18 - Login")
-        print("19 - Get user by id")
-        print("20 - Get country by id")
-        print("21 - Get vacation by id")
-        print("22 - Get role by id")
-        print("23 - Update country by id")
-        print("24 - Get all Likes")
-        print("25 - Delete a Country")
-        print("26 - Exit")
+        print("19 - get user by id")
+        print("20 - Exit")
 
         choice = input("Enter option: ")
 
+        # Handle user input based on the selected option
         if choice == "1":
             first_name = input("First name: ")
             last_name = input("Last name: ")
@@ -175,7 +176,7 @@ def main():
                 print("Vacation updated:", vacation.as_dict())
             else:
                 print("Error updating vacation.")
-        
+
 
         elif choice == "17":
             vacation_id = int(input("Enter Vacation ID to delete: "))
@@ -199,51 +200,16 @@ def main():
             get_user_by_id = user_service.get_user_by_id(user_id)
             print("User found:", get_user_by_id.as_dict() if get_user_by_id else "Error")
 
+
+
         elif choice == "20":
-            country_id = int(input("Country ID: "))
-            get_country_by_id = country_service.get_country_by_id(country_id)
-            print("User found:", get_country_by_id.as_dict() if get_country_by_id else "Error")
-
-        elif choice == "21":
-            vacation_id = int(input("Vacation ID: "))
-            get_vacation_by_id = vacation_service.get_vacation_by_id(vacation_id)
-            print("User found:", get_vacation_by_id.as_dict() if get_vacation_by_id else "Error")
-
-        elif choice == "22":
-            role_id = int(input("Role ID: "))
-            get_role_by_id = role_service.get_role_by_id(role_id)
-            print("User found:", get_role_by_id.as_dict() if get_role_by_id else "Error")
-
-        elif choice == "23":
-            country_id = int(input("Enter country ID to update: "))
-            country_name = input("Name: ")
-            country = country_service.update_country(country_id, country_name)
-            if country:
-                print("Country updated:", country.as_dict())
-            else:
-                print("Error updating country.")
-
-        elif choice == "24":
-            likes = like_service.get_all_likes()
-            print("Users:", [like.as_dict() for like in likes])
-
-        elif choice == "25":
-            country_id = int(input("Enter Country ID to delete: "))
-            deleted = country_service.delete_country(country_id)
-            if deleted:
-                print("Country deleted successfully, Make sure to update Vacations in deleted country!")
-            else:
-                print("Error: Country not found or could not be deleted")
-
-        elif choice == "26":
             print("Exiting...")
             break
-
-
 
         else:
            print("Invalid option. Try again.")
 
 
+# Run the main function
 if __name__ == "__main__":
     main()
