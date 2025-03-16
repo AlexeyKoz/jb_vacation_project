@@ -41,7 +41,8 @@ def main():
         print("15 - Delete a user")
         print("16 - Update vacation")
         print("17 - Delete vacation")
-        print("18 - Exit")
+        print("18 - Login")
+        print("19 - Exit")
 
         choice = input("Enter option: ")
 
@@ -177,8 +178,17 @@ def main():
             else:
                 print("Error: Vacation not found or could not be deleted")
 
-
         elif choice == "18":
+            email = input("Enter email: ")
+            password = input("Enter password: ")
+            user = user_service.login(email, password)
+            if user:
+                print("User logged in:")
+            else:
+                print("Login failed, please check your email and password!")
+
+
+        elif choice == "19":
             print("Exiting...")
             break
 

@@ -62,3 +62,12 @@ class UserService:
         """Сhecks if the email is in a valid format"""
         email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         return re.match(email_regex, email) is not None
+
+    def login(self, email: str, password: str):
+        if email == "" or password == "":
+            raise ValueError("Please enter email and password")
+        elif not self.is_valid_email(email):
+            raise ValueError("Invalid email format")
+        elif len(password) < 4:
+            raise ValueError("Password must be at least 4 digits")
+        return self.user_dal.login(email, password)

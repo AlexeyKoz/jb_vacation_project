@@ -77,3 +77,12 @@ class UserDAL:
             print(f"Error retrieving user: {e}")
             return None
 
+    def login(self, email: str, password: str):
+        try:
+            user = self.get_user_by_email_and_password(email, password)
+            if user:
+                return user
+            return None
+        except Exception as e:
+            print(f"Error logging in: {e}")
+            return None
