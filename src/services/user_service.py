@@ -7,15 +7,15 @@ class UserService:
     def __init__(self, db: Session):
         self.user_dal = UserDAL(db)
 
-    # Define the methods of the `UserService` class
+    # Function to get all users
     def get_all_users(self):
         return self.user_dal.get_all_users()
 
-    # Define the methods of the `UserService` class
+    # Function to get user by id
     def get_user_by_id(self, user_id: int):
         return self.user_dal.get_user_by_id(user_id)
 
-    # Define the methods of the `UserService` class
+    # Function to create user
     def create_user(self, first_name: str, last_name: str, email: str, password: str, role_id: int):
         existing_user = self.user_dal.get_user_by_email(email)
         # we need to check if the user already exists
@@ -35,7 +35,7 @@ class UserService:
         return self.user_dal.create_user(first_name, last_name, email, password, role_id)
 
 
-    # Define the methods of the `UserService` class
+    # Function to delete user by input
     def delete_user_by_input(self):
         try:
             user_id = int(input("Enter User ID to delete: "))
@@ -47,7 +47,7 @@ class UserService:
         except ValueError:
             print("Invalid input! Please enter a valid numeric User ID.")
 
-    # Define the methods of the `UserService` class
+    # Function to delete user
     def delete_user(self, user_id: int):
         return self.user_dal.delete_user(user_id)
 

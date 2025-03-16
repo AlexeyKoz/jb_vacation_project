@@ -3,7 +3,7 @@ from src.dal.base import Base
 from sqlalchemy.orm import relationship
 
 
-# Create a model for the `likes` table
+# Create a model for the likes table
 class Like(Base):
     __tablename__ = "likes"
 

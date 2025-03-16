@@ -29,7 +29,7 @@ class VacationDAL:
 
 
 
-    # This method is used to get all vacations for a specific country.
+    # This method is used to create a new vacation, with some validation rules.
     def create_vacation(self, country_id: int, description: str, start_date, end_date, price: float, image_url: str):
         try:
             # Convert start_date and end_date to datetime.date if they are strings
@@ -115,7 +115,7 @@ class VacationDAL:
 
             return None
 
-    # This method is used to delete a vacation from the database.
+    # This method is used to delete a vacation .
     def delete_vacation(self, vacation_id: int):
         try:
 

@@ -8,7 +8,7 @@ class UserDAL:
         self.db = db
 
 
-    # This method is used to get a user by its ID.
+    # This method is used to get a user by its id.
     def get_user_by_id(self, user_id: int):
         try:
             return self.db.query(User).filter(User.id == user_id).first()
@@ -86,7 +86,7 @@ class UserDAL:
             return False
 
 
-    # This method is used to get a user by its email and password.
+    # This method is used to recive all user data by recognized email and password.
     def get_user_by_email_and_password(self, email: str, password: str):
         try:
             return self.db.query(User).filter(User.email == email, User.password == password).first()
@@ -95,7 +95,7 @@ class UserDAL:
             return None
 
 
-    # This method is used to log in a user by email and password.
+    # This method is used to login a user by email and password.
     def login(self, email: str, password: str):
         try:
             user = self.get_user_by_email_and_password(email, password)

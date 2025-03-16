@@ -57,7 +57,8 @@ class RoleDAL:
 
 
 
-    # This method is used to get a role by its name.
+    # This method is used to update a role (exept admin role)
+    # in case we will create more roles in the future.
     def update_role(self, role_id: int, name: str):
         try:
             role = self.get_role_by_id(role_id)

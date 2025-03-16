@@ -16,7 +16,7 @@ class CountryDAL:
             print(f"Error getting countries: {e}")
             return []
 
-    # This method is used to get a country by its ID.
+    # This method is used to get a country by its ID from database.
     def get_country_by_id(self, country_id: int):
         try:
             return self.db.query(Country).filter(Country.id == country_id).first()
@@ -37,7 +37,7 @@ class CountryDAL:
             self.db.rollback()
             return None
 
-    # This method is used to update an existing country in the database.
+    # This method is used delete a country from the database.
     def delete_country(self, country_id: int):
         try:
             country = self.get_country_by_id(country_id)

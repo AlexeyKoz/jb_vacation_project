@@ -7,7 +7,7 @@ class Vacation(Base):
     __tablename__ = "vacations"
 
 
-    #
+    # Define the columns of the `vacations` table
     id = Column(Integer, primary_key=True, index=True)
     country_id = Column(Integer, ForeignKey("countries.id", ondelete="CASCADE"))
     description = Column(String, nullable=False)
