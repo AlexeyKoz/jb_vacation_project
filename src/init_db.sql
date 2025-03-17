@@ -57,7 +57,7 @@ INSERT INTO users (first_name, last_name, email, password, role_id) VALUES
 ('Maor', 'Shlomo', 'maor.shlomo@example.com', 'hashed_password_8', 2),
 ('Doron', 'Shalom', 'doron.shalom@example.com', 'hashed_password_9', 2);
 
---
+-- Insert data into countries table
 INSERT INTO countries (name) VALUES
     ('Israel'),
     ('Ukraine'),

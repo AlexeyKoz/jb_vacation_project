@@ -1,13 +1,11 @@
 from src.services.user_service import UserService
-from conftest import db_session
-from sqlalchemy.orm import Session
 from src.services.country_service import CountryService
 from src.services.like_service import LikeService
 from src.services.vacation_service import VacationService
 
+# 1) user registration test positive - expected to pass
 
-
-def test_user_registration_success(db_session):
+def test_user_registration_positive(db_session):
     user_service = UserService(db_session)
     user = user_service.create_user("ben", "gvir", "bengvir@gmail.com", "asds", 2)
 
@@ -18,8 +16,9 @@ def test_user_registration_success(db_session):
         db_session.delete(user)
         db_session.commit()
 
+# 1) user registration negative test - expected to fail
 
-def test_user_registration_failed(db_session):
+def test_user_registration_negative(db_session):
     user_service = UserService(db_session)
     user = user_service.create_user("asd", "gvir", 123123 , "1234", 2)
 
@@ -31,7 +30,7 @@ def test_user_registration_failed(db_session):
         db_session.delete(user)
         db_session.commit()
 
-
+# 2) user login positive test - expected to pass
 
 def test_login_positive(db_session):
     user_service = UserService(db_session)
@@ -48,6 +47,8 @@ def test_login_positive(db_session):
         db_session.delete(user)
         db_session.commit()
 
+# 2) user login negative test - expected to fail
+
 def test_login_negative(db_session):
     user_service = UserService(db_session)
     user = user_service.create_user("bibi", "Netanyahu", "bibiNetanyahu@gmail.com", "1234", role_id=2)
@@ -60,9 +61,9 @@ def test_login_negative(db_session):
         db_session.delete(user)
         db_session.commit()
 
+# 3+4) like/unlike positive test - expected to pass
 
-
-def test_like_vacation_positive(db_session):
+def test_like_unlike_vacation_positive(db_session):
     user_service = UserService(db_session)
     country_service = CountryService(db_session)
     vacation_service = VacationService(db_session)
@@ -85,7 +86,9 @@ def test_like_vacation_positive(db_session):
         db_session.delete(vacation)
         db_session.commit()
 
-def test_like_vacation_negative(db_session):
+# 3+4) like/unlike negative test - expected to fail
+
+def test_like_unlike_vacation_negative(db_session):
     user_service = UserService(db_session)
     country_service = CountryService(db_session)
     vacation_service = VacationService(db_session)
