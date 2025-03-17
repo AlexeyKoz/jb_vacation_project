@@ -12,7 +12,7 @@ sys.stderr.reconfigure(encoding='utf-8')
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 # Create a connection to the database
-DATABASE_URL = "postgresql://postgres:1234@localhost:5432/test_db"
+DATABASE_URL = "postgresql://postgres:1234@localhost:5432/project_db"
 
 # Create a connection to the database
 engine = create_engine(DATABASE_URL)
