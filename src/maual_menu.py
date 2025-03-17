@@ -124,6 +124,54 @@ def run_manual_menu(user_service, role_service, country_service, vacation_servic
             role = role_service.get_role_by_id(role_id)
             print("Role found:", role.as_dict() if role else "Error")
 
+        # Country-related actions
+        elif choice == "12":
+            country_name = input("Country name: ")
+            country = country_service.create_country(country_name)
+            print("Country created:", country.as_dict() if country else "Error")
+
+        elif choice == "13":
+            countries = country_service.get_all_countries()
+            print("Countries:", [country.as_dict() for country in countries])
+
+        elif choice == "14":
+            country_id = int(input("Country ID: "))
+            country = country_service.get_country_by_id(country_id)
+            print("Country found:", country.as_dict() if country else "Error")
+
+        elif choice == "15":
+            country_id = int(input("Enter country ID to update: "))
+            country_name = input("New country name: ")
+            country = country_service.update_country(country_id, country_name)
+            print("Country updated:", country.as_dict() if country else "Error updating country.")
+
+        elif choice == "16":
+            country_id = int(input("Enter Country ID to delete: "))
+            deleted = country_service.delete_country(country_id)
+            print("Country deleted." if deleted else "Error deleting country.")
+
+        # Like-related actions
+        elif choice == "17":
+            user_id = int(input("User ID: "))
+            vacation_id = int(input("Vacation ID: "))
+            like = like_service.add_like(user_id, vacation_id)
+            print("Vacation liked." if like else "Error liking vacation.")
+
+        elif choice == "18":
+            user_id = int(input("User ID: "))
+            vacation_id = int(input("Vacation ID: "))
+            removed = like_service.remove_like(user_id, vacation_id)
+            print("Like removed." if removed else "Error removing like.")
+
+        elif choice == "19":
+            user_id = int(input("User ID: "))
+            likes = like_service.get_likes_by_user(user_id)
+            print("User's likes:", [like.as_dict() for like in likes])
+
+        elif choice == "20":
+            likes = like_service.get_all_likes()
+            print("Likes:", [like.as_dict() for like in likes])
+
         # Vacation-related actions (fully restored)
         elif choice == "21":
             country_id = int(input("Country ID: "))
