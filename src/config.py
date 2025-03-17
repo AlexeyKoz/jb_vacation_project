@@ -3,6 +3,12 @@ from sqlalchemy.orm import sessionmaker
 from src.models import Base
 import sys
 import locale
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
+
 
 # Set the default encoding to UTF-8 to prevent encoding errors
 sys.stdout.reconfigure(encoding='utf-8')

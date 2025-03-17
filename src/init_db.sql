@@ -1,3 +1,4 @@
+-- Active: 1742235493618@@localhost@5432@project_db
 -- After creating the database,
 -- run this script to initialize the tables and populate them with data.
 

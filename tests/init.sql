@@ -1,3 +1,4 @@
+-- Active: 1742235493618@@localhost@5432@test_db
 -- Create the roles table
 CREATE TABLE roles(
   id SERIAL PRIMARY KEY,
